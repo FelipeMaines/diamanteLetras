@@ -2,21 +2,29 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
-        {
-            int altura = 0;
+        static char[] letras = new char[26];
 
-            Console.Write("Qual a letra digitada: ");
+        //Parte ALTA
+        static string pegarLetra(string texto)
+        {
+            Console.WriteLine(texto);
             string letraDigitada = Console.ReadLine();
             letraDigitada = letraDigitada.ToUpper();
 
+            return letraDigitada;
+        }
+
+        static char[] fazerArrayAlfabeto()
+        {
             string alfabeto = "abcdefghijklmnopqrstuvwxyz";
             alfabeto = alfabeto.ToUpper();
-
-            char[] letras = new char[26];
             letras = alfabeto.ToCharArray();
 
-
+            return letras;
+        }
+ 
+        static int daValorAltura(int altura, string letraDigitada)
+        {
             for (int i = 0; i < letras.Length; i++)
             {
                 if (letras[i] == letraDigitada.ToCharArray()[0])
@@ -26,109 +34,140 @@
                 }
             }
 
+            return altura;
+        }
+
+        static void colocarEspacoFora(int espacoForaCima)
+        {
+            for (int j = 0; j < espacoForaCima; j++)
+            {
+                Console.Write(" ");
+            }
+
+            
+        }
+
+        static void modificaValoresEspacosEscreveLetrasAlto(int altura, ref int espacoDentro, int limiteDentro, ref int espacoForaCima, int i)
+        {
+            if (i == 0)
+            {
+                Console.WriteLine(letras[i]);
+                espacoForaCima--;
+            }
+
+            if (espacoDentro == 0)
+            {
+                espacoDentro++;
+            }
+
+            else
+            {
+                Console.Write(letras[i]);
+
+                for (int k = 1; k <= espacoDentro; k++)
+                {
+                    Console.Write(" ");
+
+                }
+
+                if (limiteDentro > espacoDentro) //*
+                {
+                    espacoDentro += 2;
+                }
+
+                if (i < altura)
+                {
+                    espacoForaCima--;
+
+                }
+                Console.Write(letras[i]);
+
+                Console.WriteLine();
+
+            }
+        }
+
+        //PARTE BAIXA
+
+        static void colocaEspacoForaBaixo(int espacoForaBaixo)
+
+       
+        {
+            for (int j = espacoForaBaixo; j >= 0; j--)
+            {
+                Console.Write(" ");
+            }
+        }
+
+        static void modificaValoresEspacosEscreveLetrasBaixo(ref int espacoForaBaixo, ref int espacoDentro2, int limiteDentro2, int i, int altura)
+        {
+            if (i == 0)
+            {
+                Console.WriteLine(letras[i]);
+                espacoForaBaixo++;
+            }
+
+            if (espacoDentro2 == 1)
+            {
+                
+            }
+
+            else
+            {
+                Console.Write(letras[i]);
+
+                for (int k = espacoDentro2 - 2; k > 0; k--)
+                {
+                    Console.Write(" ");
+
+                }
+
+                if (limiteDentro2 < espacoDentro2) //*
+                {
+                    espacoDentro2 -= 2;
+                }
+
+                if (i < altura)
+                {
+                    espacoForaBaixo++;
+
+                }
+                Console.Write(letras[i]);
+
+                Console.WriteLine();
+
+            }
+        }
+        
+        static void Main(string[] args)
+        {
+            int altura = 0;
+
+            string letraDigitada = pegarLetra("Qual a letra digitada: ");
+
+            fazerArrayAlfabeto();
+
+            altura = daValorAltura(altura, letraDigitada);
+
             int espacoDentro = 0;
             int limiteDentro = (altura * 2) - 1;
             int espacoForaCima = 25;
 
             for (int i = 0; i < altura; i++)
             {
-                for (int j = 0; j < espacoForaCima; j++)
-                {
-                    Console.Write(" ");
-                }
-
-                if (i == 0)
-                {
-                    Console.WriteLine(letras[i]);
-                    espacoForaCima--;
-                }
-
-                if (espacoDentro == 0)
-                {
-                    espacoDentro++;
-                }
-
-                else
-                {
-                    Console.Write(letras[i]);
-
-                    for (int k = 1; k <= espacoDentro; k++)
-                    {
-                        Console.Write(" ");
-
-                    }
-
-                    if (limiteDentro > espacoDentro) //*
-                    {   
-                        espacoDentro += 2;      
-                    }
-
-                    if (i < altura)
-                    {
-                        espacoForaCima--;
-
-                    }
-                    Console.Write(letras[i]);
-
-                    Console.WriteLine();
-
-                }
-                
-
+                colocarEspacoFora(espacoForaCima);
+                modificaValoresEspacosEscreveLetrasAlto(altura, ref espacoDentro, limiteDentro, ref espacoForaCima, i);
             }
 
+            int espacoDentroBaixo = espacoDentro - 2;
+            int limiteDentroBaixo = 0;
+            int espacoForaBaixo = espacoForaCima + 1;
 
-            int espacoDentro2 = espacoDentro -2;
-            int limiteDentro2 = 0;
-            int espacoForaCima2 = espacoForaCima + 1;
-
-            for (int i = altura -2; i >= 0; i--)
+            for (int i = altura - 2; i >= 0; i--)
             {
-                for (int j = espacoForaCima2; j >= 0; j--)
-                {
-                    Console.Write(" ");
-                }
-
-                if (i == 0)
-                {
-                    Console.WriteLine(letras[i]);
-                    espacoForaCima2++;
-                }
-
-                if (espacoDentro2 == 1)
-                {
-                    break;
-                }
-
-                else
-                {
-                    Console.Write(letras[i]);
-
-                    for (int k = espacoDentro2 -2; k > 0; k--)
-                    {
-                        Console.Write(" ");
-
-                    }
-
-                    if (limiteDentro2 < espacoDentro2) //*
-                    {
-                        espacoDentro2 -= 2;
-                    }
-
-                    if (i < altura)
-                    {
-                        espacoForaCima2++;
-
-                    }
-                    Console.Write(letras[i]);
-
-                    Console.WriteLine();
-
-                }
-
-
+                colocaEspacoForaBaixo(espacoForaBaixo);
+                modificaValoresEspacosEscreveLetrasBaixo(ref espacoForaBaixo, ref espacoDentroBaixo, limiteDentroBaixo, i, altura);
             }
-
         }
     }
 }
