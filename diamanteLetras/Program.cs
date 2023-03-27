@@ -25,19 +25,21 @@
  
         static int daValorAltura(int altura, string letraDigitada)
         {
-            for (int i = 0; i < letras.Length; i++)
-            {
-                if (letras[i] == letraDigitada.ToCharArray()[0])
-                {
-                    altura = i + 1;
-                    break;
-                }
-            }
+            char letra = char.Parse(letraDigitada);
+            altura = Array.BinarySearch(letras, letra) + 1;
+            //for (int i = 0; i < letras.Length; i++)
+            //{
+            //    if (letras[i] == letraDigitada.ToCharArray()[0])
+            //    {
+            //        altura = i + 1;
+            //        break;
+            //    }
+            //}
 
             return altura;
         }
 
-        static void colocarEspacoFora(int espacoForaCima)
+        static void colocarEspacoForaCima(int espacoForaCima)
         {
             for (int j = 0; j < espacoForaCima; j++)
             {
@@ -153,9 +155,10 @@
             int limiteDentro = (altura * 2) - 1;
             int espacoForaCima = 25;
 
+            // FAZ DIAMANTE CIMA
             for (int i = 0; i < altura; i++)
             {
-                colocarEspacoFora(espacoForaCima);
+                colocarEspacoForaCima(espacoForaCima);
                 modificaValoresEspacosEscreveLetrasAlto(altura, ref espacoDentro, limiteDentro, ref espacoForaCima, i);
             }
 
@@ -163,6 +166,7 @@
             int limiteDentroBaixo = 0;
             int espacoForaBaixo = espacoForaCima + 1;
 
+            // FAZ DIAMANTE BAIXO
             for (int i = altura - 2; i >= 0; i--)
             {
                 colocaEspacoForaBaixo(espacoForaBaixo);
